@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {Link} from "@components";
-import {WORKSPACE} from "@utils/routes";
+import { Link, MainLayout } from '@components'
+import { WORKSPACE } from '@utils'
 
 export default function Home() {
-  return (
-    /*<div className={styles.container}>
+    return (
+        /*<div className={styles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -22,8 +22,8 @@ export default function Home() {
         </p>
       </main>
     </div>*/
-      <>
-        <Link href={WORKSPACE} text={"To workspace"}/>
-      </>
-  )
+        <MainLayout title={'Main'}>
+            <Link href={WORKSPACE} text={'To workspace'} />
+        </MainLayout>
+    )
 }

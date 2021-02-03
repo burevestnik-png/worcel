@@ -20,8 +20,10 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@utils/*": ["src/utils/*"],
-      "@components": ["src/components/index"]
+      "@utils": ["src/utils/index"],
+      "@components": ["src/components/index"],
+      "@Workspace": ["src/Workspace/index"],
+      "@styles/*": ["styles/*"]
     }
   },
   "exclude": [

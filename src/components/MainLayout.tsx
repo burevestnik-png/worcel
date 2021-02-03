@@ -1,8 +1,7 @@
 import { FC, ReactNode } from 'react'
-import { Head } from 'next/document'
+import Head from 'next/head'
 
 type MainLayoutProps = {
-    readonly children: ReactNode
     readonly title: string
 }
 

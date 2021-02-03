@@ -1,11 +1,11 @@
-import React, {FC} from "react";
-import {Link, MainLayout} from "@components";
-import {ROOT} from "@utils/routes";
+import React, { FC } from 'react'
+import { Link, MainLayout } from '@components'
+import { ROOT } from '@utils'
 
 const WorkSpace: FC = () => {
     return (
-        <MainLayout title={"Workspace"}>
-            <Link href={ROOT} text={"Home"}/>
+        <MainLayout title={'Workspace'}>
+            <Link href={ROOT} text={'Home'} />
         </MainLayout>
     )
 }
