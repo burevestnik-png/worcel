@@ -1,1 +1,1 @@
-export { Cell } from './Cell'
+export { DomCell } from './DomCell'

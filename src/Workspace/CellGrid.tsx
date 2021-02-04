@@ -1,6 +1,8 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Cell } from './components'
+import { DomCell } from './components'
+import { useRecoilValue } from 'recoil'
+import { cellState } from './state'
 
 const Grid = styled.div`
     display: grid;
@@ -8,11 +10,13 @@ const Grid = styled.div`
 `
 
 const CellGrid: FC = () => {
+    const cells = useRecoilValue(cellState)
+
     return (
         <Grid>
-            {Array.from({ length: 20 }, (value, key) => {
-                return <Cell key={key} />
-            })}
+            {cells.map((cell) => (
+                <DomCell key={cell.id} cell={cell} />
+            ))}
         </Grid>
     )
 }
