@@ -1,23 +1,20 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import { Cell } from './components'
 
-const CellGrid: FC = () => {
-    return <>{}</>
-}
-
-export default styled(CellGrid)`
+const Grid = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-
-    input {
-        width: 100%;
-        border-radius: 0;
-        border: 1px solid black;
-        border-bottom: none;
-        border-right: none;
-
-        &:focus {
-            outline: none;
-        }
-    }
 `
+
+const CellGrid: FC = () => {
+    return (
+        <Grid>
+            {Array.from({ length: 20 }, (value, key) => {
+                return <Cell key={key} />
+            })}
+        </Grid>
+    )
+}
+
+export default CellGrid
