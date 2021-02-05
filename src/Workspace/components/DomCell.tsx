@@ -1,9 +1,14 @@
 import { ChangeEvent, FC, FocusEvent, KeyboardEvent, Ref } from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil'
-import { cellState, findCellById, focusedCellState } from '../state'
+import {
+    cellState,
+    findCellIndexById,
+    focusedCellState,
+    updateCellById,
+} from '../state'
 import { Cell } from '../domain'
-import { findCellIndexById, updateCellById } from '../state/stateActions'
+import { MovementService } from '../services'
 
 const StyledInput = styled.input`
     width: 100%;
@@ -38,15 +43,13 @@ const DomCell: FC<CellProps> = ({ cell }) => {
     }
 
     const onKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-        console.log(event.key)
         if (event.key === 'Enter') {
             cell.ref.current.blur()
             return
         }
 
-        if (event.key === 'ArrowLeft') {
-            cell.ref.current.blur()
-            cells[findCellIndexById(cells, cell.id) - 1].ref.current.focus()
+        if (MovementService.isMovement(event)) {
+            MovementService.handleMovement(event, focusedCell, cells)
             return
         }
     }

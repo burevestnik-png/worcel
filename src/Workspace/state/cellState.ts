@@ -1,7 +1,7 @@
 import { atom } from 'recoil'
 import { Cell } from '../domain'
 
-const CELLS_QUANTITY = 3
+const CELLS_QUANTITY = 10
 
 const initCells = (): Cell[] => {
     let cells: Cell[] = []

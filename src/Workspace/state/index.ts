@@ -1,2 +1,2 @@
 export { cellState, focusedCellState } from './cellState'
-export { findCellById } from './stateActions'
+export { findCellById, findCellIndexById, updateCellById } from './stateActions'
