@@ -4,13 +4,20 @@ import { findCellIndexById } from '../state'
 
 const CELLS_WIDTH = 5
 
+enum MoveDirectionEnum {
+    ARROW_UP = 'ArrowUp',
+    ARROW_DOWN = 'ArrowDown',
+    ARROW_LEFT = 'ArrowLeft',
+    ARROW_RIGHT = 'ArrowRight',
+}
+
 class MovementService {
     static isMovement({ key }: KeyboardEvent<HTMLInputElement>): boolean {
         return (
-            key === 'ArrowLeft' ||
-            key === 'ArrowRight' ||
-            key === 'ArrowUp' ||
-            key === 'ArrowDown'
+            key === MoveDirectionEnum.ARROW_LEFT ||
+            key === MoveDirectionEnum.ARROW_RIGHT ||
+            key === MoveDirectionEnum.ARROW_UP ||
+            key === MoveDirectionEnum.ARROW_DOWN
         )
     }
 
@@ -20,15 +27,15 @@ class MovementService {
         cells: Cell[],
     ): void {
         switch (key) {
-            case 'ArrowLeft':
+            case MoveDirectionEnum.ARROW_LEFT:
                 this.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, 1, 'left')
                 break
-            case 'ArrowRight':
+            case MoveDirectionEnum.ARROW_RIGHT:
                 this.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, 1, 'right')
                 break
-            case 'ArrowDown':
+            case MoveDirectionEnum.ARROW_DOWN:
                 this.focusOutCell(focusedCell)
                 this.focusInCellByIndex(
                     focusedCell,
@@ -37,7 +44,7 @@ class MovementService {
                     'right',
                 )
                 break
-            case 'ArrowUp':
+            case MoveDirectionEnum.ARROW_UP:
                 this.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, CELLS_WIDTH, 'left')
                 break
@@ -53,6 +60,17 @@ class MovementService {
         mode: 'left' | 'right',
     ): void {
         const calculatedOffset = mode === 'left' ? -offset : offset
+        const cellIndex = findCellIndexById(cells, currentCell.id)
+        const cellQuantity = cells.length
+
+        if (
+            cellIndex + calculatedOffset < 0 ||
+            cellIndex + calculatedOffset >= cellQuantity
+        ) {
+            currentCell.ref.current.focus()
+            return
+        }
+
         cells[
             findCellIndexById(cells, currentCell.id) + calculatedOffset
         ].ref.current.focus()

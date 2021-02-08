@@ -1,16 +1,28 @@
-import { ChangeEvent, FC, FocusEvent, KeyboardEvent, Ref } from 'react'
+import {
+    ChangeEvent,
+    FC,
+    FocusEvent,
+    KeyboardEvent,
+    MouseEvent,
+    useState,
+} from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil'
 import {
     cellState,
+    findCellById,
     findCellIndexById,
     focusedCellState,
     updateCellById,
 } from '../state'
 import { Cell } from '../domain'
-import { MovementService } from '../services'
+import { CalculationService, MovementService, Parser } from '../services'
 
-const StyledInput = styled.input`
+type StyledInputProps = {
+    readonly readOnly?: boolean
+}
+
+const StyledInput = styled.input<StyledInputProps>`
     width: 100%;
     border-radius: 0;
     border: 1px solid black;
@@ -19,6 +31,14 @@ const StyledInput = styled.input`
 
     &:focus {
         outline: none;
+        border: 2px solid black;
+        ${(props) =>
+            props.readOnly
+                ? `
+                    text-indent: -9999em;
+                    text-shadow : 9999em 0 0 #000;
+                `
+                : ''}
     }
 `
 
@@ -29,6 +49,7 @@ type CellProps = {
 const DomCell: FC<CellProps> = ({ cell }) => {
     const [cells, setCellState] = useRecoilState(cellState)
     const [focusedCell, setFocusedCell] = useRecoilState(focusedCellState)
+    const [readOnly, setReadOnlyMode] = useState(true)
 
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
         setCellState(updateCellById(cells, cell.id, event.target.value))
@@ -38,12 +59,26 @@ const DomCell: FC<CellProps> = ({ cell }) => {
         setFocusedCell(cell)
     }
 
+    const onDoubleClick = (event: MouseEvent<HTMLInputElement>) => {
+        setFocusedCell(cell)
+        setReadOnlyMode(false)
+    }
+
     const onFocusOut = (event: FocusEvent) => {
-        setFocusedCell(undefined)
+        setFocusedCell(null)
+        setReadOnlyMode(true)
     }
 
     const onKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
+            // @ts-ignore
+            const cellContent = event.target.value
+            if (Parser.isExpression(cellContent)) {
+                const expression = CalculationService.calculate(cellContent)
+                setCellState(updateCellById(cells, cell.id, expression.result))
+                findCellById(cells, cell.id).ref.current.value =
+                    expression.result
+            }
             cell.ref.current.blur()
             return
         }
@@ -56,11 +91,13 @@ const DomCell: FC<CellProps> = ({ cell }) => {
 
     return (
         <StyledInput
+            readOnly={readOnly}
             defaultValue={cell.value}
             type="text"
             ref={cell.ref}
             onChange={onChange}
             onFocus={onFocusIn}
+            onDoubleClick={onDoubleClick}
             onBlur={onFocusOut}
             onKeyDown={onKeyPress}
         />
