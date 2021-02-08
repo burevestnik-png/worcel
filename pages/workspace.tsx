@@ -6,9 +6,7 @@ import { CellGrid } from '@Workspace'
 const WorkSpace: FC = () => {
     return (
         <MainLayout title={'Workspace'}>
-            <p>
-                <Link href={ROOT} text={'Home'} />
-            </p>
+            <Link href={ROOT} text={'Home'} />
             <CellGrid />
         </MainLayout>
     )

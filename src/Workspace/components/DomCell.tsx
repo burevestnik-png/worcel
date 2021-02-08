@@ -8,15 +8,14 @@ import {
 } from 'react'
 import styled from 'styled-components'
 import { useRecoilState } from 'recoil'
+import { cellState, focusedCellState, updateCellById } from '../state'
+import { Cell, Expression } from '../domain'
 import {
-    cellState,
-    findCellById,
-    findCellIndexById,
-    focusedCellState,
-    updateCellById,
-} from '../state'
-import { Cell } from '../domain'
-import { CalculationService, MovementService, Parser } from '../services'
+    CalculationService,
+    DomCellManipulator,
+    MovementService,
+    Parser,
+} from '../services'
 
 type StyledInputProps = {
     readonly readOnly?: boolean
@@ -70,16 +69,21 @@ const DomCell: FC<CellProps> = ({ cell }) => {
     }
 
     const onKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        setFocusedCell(cell)
+        setReadOnlyMode(false)
+
         if (event.key === 'Enter') {
             // @ts-ignore
             const cellContent = event.target.value
+
             if (Parser.isExpression(cellContent)) {
-                const expression = CalculationService.calculate(cellContent)
+                const expression: Expression = CalculationService.calculate(
+                    cellContent,
+                )
                 setCellState(updateCellById(cells, cell.id, expression.result))
-                findCellById(cells, cell.id).ref.current.value =
-                    expression.result
+                DomCellManipulator.updateCellValue(cells, cell.id, expression)
+                DomCellManipulator.focusOutCell(cell)
             }
-            cell.ref.current.blur()
             return
         }
 

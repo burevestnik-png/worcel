@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react'
 import Head from 'next/head'
+import styled from 'styled-components'
 
 type MainLayoutProps = {
     readonly title: string

@@ -1,6 +1,7 @@
 import { KeyboardEvent } from 'react'
 import { Cell } from '../domain'
 import { findCellIndexById } from '../state'
+import { DomCellManipulator } from './DomCellManipulator'
 
 const CELLS_WIDTH = 5
 
@@ -28,15 +29,15 @@ class MovementService {
     ): void {
         switch (key) {
             case MoveDirectionEnum.ARROW_LEFT:
-                this.focusOutCell(focusedCell)
+                DomCellManipulator.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, 1, 'left')
                 break
             case MoveDirectionEnum.ARROW_RIGHT:
-                this.focusOutCell(focusedCell)
+                DomCellManipulator.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, 1, 'right')
                 break
             case MoveDirectionEnum.ARROW_DOWN:
-                this.focusOutCell(focusedCell)
+                DomCellManipulator.focusOutCell(focusedCell)
                 this.focusInCellByIndex(
                     focusedCell,
                     cells,
@@ -45,7 +46,7 @@ class MovementService {
                 )
                 break
             case MoveDirectionEnum.ARROW_UP:
-                this.focusOutCell(focusedCell)
+                DomCellManipulator.focusOutCell(focusedCell)
                 this.focusInCellByIndex(focusedCell, cells, CELLS_WIDTH, 'left')
                 break
             default:
@@ -74,10 +75,6 @@ class MovementService {
         cells[
             findCellIndexById(cells, currentCell.id) + calculatedOffset
         ].ref.current.focus()
-    }
-
-    private static focusOutCell(cell: Cell): void {
-        cell.ref.current.blur()
     }
 }
 
