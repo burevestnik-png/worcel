@@ -15,3 +15,5 @@ const StyledContainer = styled.div`
 const Container: FC = ({ children }) => {
     return <StyledContainer>{children}</StyledContainer>
 }
+
+export { Container }
