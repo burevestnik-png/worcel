@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <MainLayout title={'Main'}>
             <Header />
-            <SizedBox />
+            <SizedBox height={'.5rem'} />
             <Container>
                 <Link href={WORKSPACE} text={'To workspace'} />
             </Container>
