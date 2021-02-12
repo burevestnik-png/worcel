@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Header, Link, MainLayout } from '@components'
+import { Container, Header, Link, MainLayout, SizedBox } from '@components'
 import { ROOT } from '@utils'
 import { CellGrid } from '@Workspace'
 
@@ -7,8 +7,11 @@ const WorkSpace: FC = () => {
     return (
         <MainLayout title={'Workspace'}>
             <Header />
-            <Link href={ROOT} text={'Home'} />
-            <CellGrid />
+            <Container>
+                <Link href={ROOT} text={'Home'} />
+                <SizedBox height={'.5rem'} />
+                <CellGrid />
+            </Container>
         </MainLayout>
     )
 }
