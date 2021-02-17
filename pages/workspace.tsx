@@ -8,7 +8,8 @@ const WorkSpace: FC = () => {
         <MainLayout title={'Workspace'}>
             <Header />
             <Container>
-                <Link href={ROOT} text={'Home'} />
+                <SizedBox height={'.5rem'} />
+                <Link href={ROOT} text={'Go to home'} isExternal={false} />
                 <SizedBox height={'.5rem'} />
                 <CellGrid />
             </Container>

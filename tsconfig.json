@@ -23,7 +23,9 @@
       "@utils": ["src/utils/index"],
       "@components": ["src/components/index"],
       "@Workspace": ["src/Workspace/index"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@Home": ["src/Home/index"],
+      "@assets/*": ["public/*"]
     }
   },
   "exclude": [

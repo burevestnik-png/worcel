@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import { FC } from 'react'
+import { BORDER_LINE } from '../styleUtils'
+
+const HEADER_HEIGHT = '4rem'
 
 const StyledHeader = styled.header`
     width: 100%;
@@ -8,7 +11,9 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: center;
 
-    height: 5rem;
+    height: ${HEADER_HEIGHT};
+
+    border: 0.5px ${BORDER_LINE} solid;
 
     span {
         font-size: 1.5rem;
@@ -25,4 +30,4 @@ const Header: FC = () => {
     )
 }
 
-export { Header }
+export { Header, HEADER_HEIGHT }

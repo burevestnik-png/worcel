@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FC } from 'react'
+import { HEADER_HEIGHT } from './Header'
 
 const StyledContainer = styled.div`
     display: flex;
@@ -9,7 +10,7 @@ const StyledContainer = styled.div`
     width: 80%;
     margin: 0 auto;
 
-    height: calc(100vh - 5rem);
+    height: calc(100vh - ${HEADER_HEIGHT});
 `
 
 const Container: FC = ({ children }) => {
