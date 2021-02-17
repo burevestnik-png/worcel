@@ -8,6 +8,8 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: center;
 
+    height: 5rem;
+
     span {
         font-size: 1.5rem;
         font-style: italic;

@@ -13,6 +13,10 @@ class DomCellManipulator {
     static focusOutCell(cell: Cell): void {
         cell.ref.current.blur()
     }
+
+    static deleteCellContent(cells: Cell[], id: string): void {
+        findCellById(cells, id).ref.current.value = ''
+    }
 }
 
 export { DomCellManipulator }

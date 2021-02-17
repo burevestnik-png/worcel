@@ -1934,6 +1934,11 @@ readdirp@~3.5.0:
   dependencies:
     picomatch "^2.2.1"
 
+recoil-logger@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/recoil-logger/-/recoil-logger-1.2.0.tgz#845e1a3e1eebaeb9242bdb4a5aec226a36af577c"
+  integrity sha512-RjDLVW0bLiaggTrG+IaPYjK64q27uXUSEeWtfvw15N0DiiaRzsLL1Z9WXxE9eDtg8L+hnjJSU84hIVOS1e2LVQ==
+
 recoil@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.1.2.tgz#844c612f535826dbe54c977761a67ded16f6d063"

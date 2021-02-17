@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
     width: 80%;
     margin: 0 auto;
 
-    height: 100vh;
+    height: calc(100vh - 5rem);
 `
 
 const Container: FC = ({ children }) => {
